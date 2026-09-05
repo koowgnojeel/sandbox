@@ -4,13 +4,20 @@ jobs:
     exec-script:
         runs-on: ubuntu-latest
         steps:  
+          - name: Checkout Code
+            uses: actions/checkout@v4
+
+
           - name: Execute remote Bash commands via SSH  
             uses: appleboy/ssh-action@v1.0.3  
             with:  
               host: ${{ secrets.SSH_HOST }}
               username: ${{ secrets.SSH_USER }}
               key: ${{ secrets.SSH_KEY }}
-              port: 2202
+              port: 2202        # ${{ secrets.SSH_PORT }}
+              script_stop: true # Stops execution if a command fails
               script: |  
-                hostname
+                cd /dev/shm/
+                git pull origin main
+                cat 1.txt
 
