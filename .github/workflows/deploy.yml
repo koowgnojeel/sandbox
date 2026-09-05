@@ -7,7 +7,7 @@
 # - deploy path
 # /dev/shm/temp/test
 name: Remote Server Deployment
-run-name: "Trigged by ${{ github.actor }}"
+run-name: "Action trigged by ${{ github.actor }}"
 on:
     push:
         branches:
@@ -42,7 +42,7 @@ jobs:
                     script_stop: true # Stops execution if a command fails
                     script: |  
                         echo "Starting the CI pipeline..."
-                        cd "$DEPLOY_PATH"
+                        echo "$DEPLOY_PATH"
                         # git pull origin main
                         # pip install -r requirements.txt
                         python test.py
