@@ -14,7 +14,7 @@
 #     * deploy path
 #       .../test
 # 
-# ci-cid.sh
+# /usr/local/bin/ci-cid.sh
 #     #!/bin/bash
 # 
 #     DEPLOY_PATH=/dev/shm/temp/test/
