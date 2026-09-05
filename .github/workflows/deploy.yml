@@ -18,37 +18,44 @@ jobs:
             DEPLOY_PATH: "/dev/shm/temp/test/"
         runs-on: ubuntu-latest
         steps:  
-            # 1. Downloads repository onto the runner
-            - name: Check out repository code
-              uses: actions/checkout@v7
-              with:
-                  path: "$DEPLOY_PATH"
-                  fetch-depth: 0
-                  submodules: true # or 'recursive'
-            
-            # 2. Subsequent step(s) - see, $GITHUB_WORKSPACE directory
-            # $GITHUB_WORKSPACE == /home/runner/work/sandbox/sandbox
-            - name: Run Tests
-              working-directory: "$DEPLOY_PATH"
-              run: |
-                  hostname
-                  pwd
+            # ---------------------------------------------
+            # This works on GitHub-hosted virtual machines.
+            # ---------------------------------------------
+            # # 1. Downloads repository onto the runner
+            # - name: Check out repository code
+            #   uses: actions/checkout@v7
+            #   with:
+            #       path: "$DEPLOY_PATH"
+            #       fetch-depth: 0
+            #       submodules: true # or 'recursive'
+            # 
+            # # 2. Subsequent step(s) - see, $GITHUB_WORKSPACE directory
+            # # $GITHUB_WORKSPACE == /home/runner/work/sandbox/sandbox
+            # - name: Run Tests
+            #   working-directory: "$DEPLOY_PATH"
+            #   run: |
+            #       hostname
+            #       pwd
 
-            # <TESTED>
-            # - name: Execute remote SSH commands
-            #   uses: appleboy/ssh-action@v1.0.3  
-            #   with:  
-            #         host: ${{ secrets.SSH_HOST }}
-            #         username: ${{ secrets.SSH_USER }}
-            #         key: ${{ secrets.SSH_KEY }}
-            #         port: ${{ secrets.SSH_PORT }}
-            #         envs: DEPLOY_PATH
-            #         timeout: 60s
-            #         script_stop: true  # Stops execution if a command fails
-            #         script: |  
-            #             echo "Starting the CI pipeline..."
-            #             echo "$DEPLOY_PATH"
-            #             # git pull origin main
-            #             # pip install -r requirements.txt
-            #             echo "Pipeline finished successfully!"
+            - name: Execute remote SSH commands
+              uses: appleboy/ssh-action@v1.0.3  
+              with:  
+                    host: ${{ secrets.SSH_HOST }}
+                    username: ${{ secrets.SSH_USER }}
+                    key: ${{ secrets.SSH_KEY }}
+                    port: ${{ secrets.SSH_PORT }}
+                    envs: DEPLOY_PATH
+                    timeout: 60s
+                    script_stop: true  # Stops execution if a command fails
+                    script: |  
+                        echo "Starting the CI pipeline..."
+                        cd "$DEPLOY_PATH"
+                        pwd
+                        git clone "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY.git"
+                        # git clone "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@${GITHUB_SERVER_URL#https://}/$GITHUB_REPOSITORY.git"
+                        # (x) git pull origin main
+
+                        # pip install -r requirements.txt
+                        python test.py
+                        echo "Pipeline finished successfully!"
 
