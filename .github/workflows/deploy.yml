@@ -38,7 +38,8 @@ jobs:
                     username: ${{ secrets.SSH_USER }}
                     key: ${{ secrets.SSH_KEY }}
                     port: ${{ secrets.SSH_PORT }}
-
+                    envs: APP_VERSION,DATABASE_URL
+                    capture_stdout: true
                     script_stop: true  # Stops execution if a command fails
                     script: |  
                         echo "Starting the CI pipeline..."
