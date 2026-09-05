@@ -15,13 +15,13 @@ on:
 jobs:
     deploy:
         env:
-            DEPLOY_PATH: /dev/shm/temp/test/
+            DEPLOY_PATH: "/dev/shm/temp/test/"
 
         runs-on: ubuntu-latest
         steps:  
             # # 1. This step downloads your repository onto the runner
             # - name: Check out repository code
-            #   uses: actions/checkout@v4
+            #   uses: actions/checkout@v7
             #   with:
             #       path: /dev/shm/temp/test
             #       fetch-depth: 0
@@ -39,12 +39,11 @@ jobs:
                     key: ${{ secrets.SSH_KEY }}
                     port: ${{ secrets.SSH_PORT }}
 
-                    script_stop: true # Stops execution if a command fails
+                    script_stop: true  # Stops execution if a command fails
                     script: |  
                         echo "Starting the CI pipeline..."
                         echo "$DEPLOY_PATH"
                         # git pull origin main
                         # pip install -r requirements.txt
-                        python test.py
                         echo "Pipeline finished successfully!"
 
