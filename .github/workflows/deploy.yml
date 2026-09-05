@@ -11,8 +11,6 @@ jobs:
               username: ${{ secrets.SSH_USER }}
               key: ${{ secrets.SSH_KEY }}
               port: 2202
-              script_stop: true # Stops execution if a command fails
               script: |  
-                cd /dev/shm
-                touch ok
+                hostname
 
