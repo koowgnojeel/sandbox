@@ -1,6 +1,8 @@
-#
-name: Run simple commands in Ubuntu
-on: [push]
+name: Remote Server Deployment
+on:
+    push:
+        branches:
+            - main
 jobs:
     exec-script:
         runs-on: ubuntu-latest
@@ -14,7 +16,7 @@ jobs:
               port: 2202        # ${{ secrets.SSH_PORT }}
               script_stop: true # Stops execution if a command fails
               script: |  
-                cd /dev/shm/behind/sandbox/
+                cd /dev/shm/temp/sandbox/
                 git pull origin main
                 python test.py
 
