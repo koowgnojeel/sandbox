@@ -1,0 +1,16 @@
+name: setting code on ubuntu
+on: [push]
+jobs:
+  exec-script:
+    runs-on: ubuntu-latest
+    steps:  
+      - name: Execute remote Bash commands via SSH  
+        uses: appleboy/ssh-action@v1.0.3  
+        with:  
+          host: ${{ secrets.SSH_HOST }}  
+          username: ${{ secrets.SSH_USER }}  
+          key: ${{ secrets.SSH_KEY }}  
+          script: |  
+            cd /dev/shm/temp/
+            touch touched-by-github
+
