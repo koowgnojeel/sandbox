@@ -55,8 +55,6 @@ jobs:
                     timeout: 60s
                     script_stop: true  # Stops execution if a command fails
                     script: |  
-                        echo "Starting the CI pipeline..."
-
                         # ${{ github.event_name }} : push
                         # ${{ runner.os }}         : Linux
                         # ${{ github.ref }}        : refs/heads/main
@@ -64,12 +62,11 @@ jobs:
                         # ${{ github.workspace }}  : /home/runner/work/sandbox/sandbox
                         # ${{ job.status }}        : success
 
-                        cd `dirname ${DEPLOY_PATH}`
-                        mv -v $DEPLOY_PATH `dirname ${DEPLOY_PATH}`"/$(date +'%d%m%Y%H%M%S')"
-
-                        mkdir -v -p $DEPLOY_PATH
-                        cd $DEPLOY_PATH
-                        pwd
+                        cd `dirname ${DEPLOY_PATH}` \
+                        && mv -v $DEPLOY_PATH `dirname ${DEPLOY_PATH}`"/$(date +'%d%m%Y%H%M%S')" \
+                        && mkdir -v -p $DEPLOY_PATH \
+                        && cd $DEPLOY_PATH \
+                        && pwd
                         # TODO - set env - "$GITHUB_REPOSITORY"
                         # git clone https://github.com/${{ github.repository }}.git
                         # git clone "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@${GITHUB_SERVER_URL#https://}/$GITHUB_REPOSITORY.git"
@@ -77,6 +74,5 @@ jobs:
 
                         # pip install -r requirements.txt
                         # python test.py
-                        echo ${{ job.status }}
 
 
