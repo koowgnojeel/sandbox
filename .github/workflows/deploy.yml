@@ -67,7 +67,7 @@ jobs:
                         cd `dirname ${DEPLOY_PATH}`
                         mv -v $DEPLOY_PATH `dirname ${DEPLOY_PATH}`"/$(date +'%d%m%Y%H%M%S')"
 
-                        mkdir -p -v $DEPLOY_PATH
+                        mkdir -v -p $DEPLOY_PATH
                         cd $DEPLOY_PATH
                         pwd
                         # TODO - set env - "$GITHUB_REPOSITORY"
