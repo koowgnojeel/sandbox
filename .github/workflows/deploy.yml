@@ -1,4 +1,4 @@
-name: setting code on ubuntu
+name: Run simple commands in Ubuntu
 on: [push]
 jobs:
   exec-script:
@@ -10,7 +10,9 @@ jobs:
           host: ${{ secrets.SSH_HOST }}  
           username: ${{ secrets.SSH_USER }}  
           key: ${{ secrets.SSH_KEY }}  
+          port: 2202
           script: |  
             cd /dev/shm/temp/
             touch touched-by-github
+
 
