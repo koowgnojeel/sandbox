@@ -4,7 +4,8 @@ jobs:
     exec-script:
         runs-on: ubuntu-latest
         steps:  
-            - name: Run SSH command via native shell
-              run: |
-                # Ensure the SSH private key is properly configured first
+          - name: Execute remote Bash commands via SSH  
+            uses: appleboy/ssh-action@v1.0.3  
+            with:  
+              script: |  
                 ssh -p 2202 -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "cd /dev/shm && touch ok"
