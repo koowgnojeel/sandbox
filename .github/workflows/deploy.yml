@@ -1,10 +1,5 @@
-# test3
-name: Run simple commands in Ubuntu
-on: [push]
-jobs:
-  exec-script:
-    runs-on: ubuntu-latest
-    steps:  
-      - name: Execute remote Bash commands via SSH  
-        run:  
-          ssh -p 2202 -i ${{ secrets.SSH_KEY }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "cd /dev/shm/ && touch touched-by-github"
+  # Using standard shell commands (run)
+  - name: Run SSH command via native shell
+    run: |
+      # Ensure the SSH private key is properly configured first
+      ssh -p 2202 -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "cd /dev/shm && touch ok"
