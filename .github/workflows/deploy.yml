@@ -18,32 +18,37 @@ jobs:
             DEPLOY_PATH: "/dev/shm/temp/test/"
         runs-on: ubuntu-latest
         steps:  
-            # # 1. This step downloads your repository onto the runner
-            # - name: Check out repository code
-            #   uses: actions/checkout@v7
-            #   with:
-            #       path: /dev/shm/temp/test
-            #       fetch-depth: 0
-            #       submodules: true # or 'recursive'
-            # 
-            # # 2. Subsequent steps - see, $GITHUB_WORKSPACE directory
-            # - name: Run Tests
-            #   run: npm test
-            #   working-directory: /dev/shm/temp/test/
-            - name: Execute remote SSH commands
-              uses: appleboy/ssh-action@v1.0.3  
-              with:  
-                    host: ${{ secrets.SSH_HOST }}
-                    username: ${{ secrets.SSH_USER }}
-                    key: ${{ secrets.SSH_KEY }}
-                    port: ${{ secrets.SSH_PORT }}
-                    envs: DEPLOY_PATH
-                    timeout: 60s
-                    script_stop: true  # Stops execution if a command fails
-                    script: |  
-                        echo "Starting the CI pipeline..."
-                        echo "$DEPLOY_PATH"
-                        # git pull origin main
-                        # pip install -r requirements.txt
-                        echo "Pipeline finished successfully!"
+            # 1. Downloads repository onto the runner
+            - name: Check out repository code
+              uses: actions/checkout@v7
+              with:
+                  path: /dev/shm/temp/test
+                  fetch-depth: 0
+                    # submodules: true # or 'recursive'
+            
+            # 2. Subsequent step(s) - see, $GITHUB_WORKSPACE directory
+            - name: Run Tests
+              working-directory: /dev/shm/temp/test/
+              run: |
+                python test.py
+                echo "$GITHUB_WORKSPACE"
+                echo "done"
+
+            # <TESTED>
+            # - name: Execute remote SSH commands
+            #   uses: appleboy/ssh-action@v1.0.3  
+            #   with:  
+            #         host: ${{ secrets.SSH_HOST }}
+            #         username: ${{ secrets.SSH_USER }}
+            #         key: ${{ secrets.SSH_KEY }}
+            #         port: ${{ secrets.SSH_PORT }}
+            #         envs: DEPLOY_PATH
+            #         timeout: 60s
+            #         script_stop: true  # Stops execution if a command fails
+            #         script: |  
+            #             echo "Starting the CI pipeline..."
+            #             echo "$DEPLOY_PATH"
+            #             # git pull origin main
+            #             # pip install -r requirements.txt
+            #             echo "Pipeline finished successfully!"
 
