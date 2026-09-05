@@ -61,22 +61,22 @@ jobs:
                         # ${{ runner.os }}         : Linux
                         # ${{ github.ref }}        : refs/heads/main
                         # ${{ github.repository }} : koowgnojeel/sandbox
-                        # ${{ github.repository }} : koowgnojeel/sandbox
                         # ${{ github.workspace }}  : /home/runner/work/sandbox/sandbox
                         # ${{ job.status }}        : success
 
                         cd `dirname ${DEPLOY_PATH}`
                         mv -v $DEPLOY_PATH `dirname ${DEPLOY_PATH}`"/$(date +'%d%m%Y%H%M%S')"
 
-                        mkdir -p -v "$DEPLOY_PATH"
-                        cd "$DEPLOY_PATH"
+                        mkdir -p -v $DEPLOY_PATH
+                        cd $DEPLOY_PATH
                         pwd
                         # TODO - set env - "$GITHUB_REPOSITORY"
-                        # git clone https://github.com/koowgnojeel/sandbox.git
+                        # git clone https://github.com/${{ github.repository }}.git
                         # git clone "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@${GITHUB_SERVER_URL#https://}/$GITHUB_REPOSITORY.git"
                         # (x) git pull origin main
 
                         # pip install -r requirements.txt
                         # python test.py
-                        echo "Pipeline finished successfully!"
+                        echo ${{ job.status }}
+
 
