@@ -65,7 +65,7 @@ jobs:
                         # ${{ github.workspace }}  : /home/runner/work/sandbox/sandbox
                         # ${{ job.status }}        : success
 
-                        mv -v `dirname ${DEPLOY_PATH}`"/$(date +'%d%m%Y%H%M%S')"
+                        mv -v $DEPLOY_PATH `dirname ${DEPLOY_PATH}`"/$(date +'%d%m%Y%H%M%S')"
 
                         mkdir -p "$DEPLOY_PATH"
                         cd "$DEPLOY_PATH"
