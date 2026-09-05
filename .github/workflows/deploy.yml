@@ -1,3 +1,4 @@
+#
 name: Run simple commands in Ubuntu
 on: [push]
 jobs:
