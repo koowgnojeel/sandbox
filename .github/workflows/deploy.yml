@@ -1,11 +1,17 @@
-# - dev-1
-# /dev/shm/temp/dev1
+# * Actions secrets and variables 정의
+#     * SSH_HOST
+#     * SSH_USER
+#     * SSH_KEY  ; SSH private key
+#     * SSH_PORT
 # 
-# - dev-2
-# /dev/shm/temp/dev2
+# * dev-1
+#   .../dev1
 # 
-# - deploy path
-# /dev/shm/temp/test
+# * dev-2
+#   .../dev2
+# 
+# * deploy path
+#   .../test
 name: Remote Server Deployment
 run-name: "Action trigged by ${{ github.actor }}"
 on:
@@ -15,6 +21,7 @@ on:
 jobs:
     deploy:
         env:
+            # 환경변수 정의
             DEPLOY_PATH: "/dev/shm/temp/test/"
         runs-on: ubuntu-latest
         steps:  
@@ -23,7 +30,7 @@ jobs:
             # ---------------------------------------------
             # # 1. Downloads repository onto the runner
             # - name: Check out repository code
-            #   uses: actions/checkout@v7
+            #   uses: actions/checkout@main
             #   with:
             #       path: "$DEPLOY_PATH"
             #       fetch-depth: 0
@@ -49,10 +56,21 @@ jobs:
                     script_stop: true  # Stops execution if a command fails
                     script: |  
                         echo "Starting the CI pipeline..."
+
+                        echo "github.event_name : "               ${{ github.event_name }}
+                        echo "runner.os : "                       ${{ runner.os }}
+                        echo "github.ref : "                      ${{ github.ref }}
+                        echo "github.repository : "               ${{ github.repository }}
+                        echo "github.repository : "               ${{ github.repository }}
+                        echo "github.workspace : "                ${{ github.workspace }}
+                        echo "job.status : "                      ${{ job.status }}
+                        echo "steps.remote_ssh.outputs.stdout : " ${{ steps.remote_ssh.outputs.stdout }}
+
+                        mv -v "$DEPLOY_PATH" $(date +"%d%m%Y%H%M%S")
+                        mkdir -p "$DEPLOY_PATH"
                         cd "$DEPLOY_PATH"
                         pwd
-                        echo "$GITHUB_SERVER_URL"
-                        echo "$GITHUB_REPOSITORY"
+                        # TODO - set env - "$GITHUB_REPOSITORY"
                         # git clone https://github.com/koowgnojeel/sandbox.git
                         # git clone "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@${GITHUB_SERVER_URL#https://}/$GITHUB_REPOSITORY.git"
                         # (x) git pull origin main
