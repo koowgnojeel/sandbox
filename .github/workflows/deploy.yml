@@ -38,7 +38,7 @@ jobs:
                     key: ${{ secrets.SSH_KEY }}
                     port: ${{ secrets.SSH_PORT }}
                     envs: DEPLOY_PATH
-                    timeout: 30        # in second(s)
+                    timeout: 60s
                     script_stop: true  # Stops execution if a command fails
                     script: |  
                         echo "Starting the CI pipeline..."
