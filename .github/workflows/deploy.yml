@@ -7,8 +7,7 @@
 # - deploy path
 # /dev/shm/temp/test
 name: Remote Server Deployment
-# run-name: ${{ github.actor }} ← Github username
-timeout-minutes: 1 # Time in minutes
+run-name: "Trigged by ${{ github.actor }}"
 on:
     push:
         branches:
