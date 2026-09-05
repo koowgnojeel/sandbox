@@ -1,17 +1,41 @@
-# * Actions secrets and variables 정의
-#     * SSH_HOST
-#     * SSH_USER
-#     * SSH_KEY  ; SSH private key
-#     * SSH_PORT
+# settings
+#     * Actions secrets and variables 정의
+#         * SSH_HOST
+#         * SSH_USER
+#         * SSH_KEY  ; SSH private key
+#         * SSH_PORT
 # 
-# * dev-1
-#   .../dev1
+#     * dev-1
+#       .../dev1
 # 
-# * dev-2
-#   .../dev2
+#     * dev-2
+#       .../dev2
 # 
-# * deploy path
-#   .../test
+#     * deploy path
+#       .../test
+# 
+# ci-cid.sh
+#     #!/bin/bash
+# 
+#     DEPLOY_PATH=/dev/shm/temp/test/
+# 
+#     cd `dirname ${DEPLOY_PATH}`
+# 
+#     mv -v $DEPLOY_PATH `dirname ${DEPLOY_PATH}`"/$(date +'%d%m%Y%H%M%S')"
+# 
+#     mkdir -v -p $DEPLOY_PATH
+# 
+#     cd $DEPLOY_PATH
+# 
+#     pwd
+# 
+#     # git clone https://github.com/${{ github.repository }}.git
+#     # git clone "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@${GITHUB_SERVER_URL#https://}/$GITHUB_REPOSITORY.git"
+#     # (x) git pull origin main
+# 
+#     # venv
+#     # pip install -r requirements.txt
+#     # run - python test.py
 name: Remote Server Deployment
 run-name: "Action trigged by ${{ github.actor }}"
 on:
@@ -61,18 +85,9 @@ jobs:
                         # ${{ github.repository }} : koowgnojeel/sandbox
                         # ${{ github.workspace }}  : /home/runner/work/sandbox/sandbox
                         # ${{ job.status }}        : success
-
-                        cd `dirname ${DEPLOY_PATH}` \
-                        && mv -v $DEPLOY_PATH `dirname ${DEPLOY_PATH}`"/$(date +'%d%m%Y%H%M%S')" \
-                        && mkdir -v -p $DEPLOY_PATH \
-                        && cd $DEPLOY_PATH \
-                        && pwd
-                        # TODO - set env - "$GITHUB_REPOSITORY"
-                        # git clone https://github.com/${{ github.repository }}.git
-                        # git clone "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@${GITHUB_SERVER_URL#https://}/$GITHUB_REPOSITORY.git"
-                        # (x) git pull origin main
-
-                        # pip install -r requirements.txt
-                        # python test.py
-
+                        # echo $DEPLOY_PATH
+                        # -------------------------------------
+                        # DO NOT DESCRIBE COMPLEX COMMANDS HERE
+                        # -------------------------------------
+                        ci-cd.sh
 
