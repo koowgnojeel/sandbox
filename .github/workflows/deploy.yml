@@ -51,11 +51,13 @@ jobs:
                         echo "Starting the CI pipeline..."
                         cd "$DEPLOY_PATH"
                         pwd
-                        git clone "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY.git"
+                        echo "$GITHUB_SERVER_URL"
+                        echo "$GITHUB_REPOSITORY"
+                        # git clone https://github.com/koowgnojeel/sandbox.git
                         # git clone "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@${GITHUB_SERVER_URL#https://}/$GITHUB_REPOSITORY.git"
                         # (x) git pull origin main
 
                         # pip install -r requirements.txt
-                        python test.py
+                        # python test.py
                         echo "Pipeline finished successfully!"
 
