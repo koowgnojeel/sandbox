@@ -7,5 +7,17 @@ jobs:
           - name: Execute remote Bash commands via SSH  
             uses: appleboy/ssh-action@v1.0.3  
             with:  
+              host: ${{ secrets.SSH_HOST }}
+              username: ${{ secrets.SSH_USER }}
+              key: ${{ secrets.SSH_KEY }}
+              port: 2202
+              script_stop: true # Stops execution if a command fails
+              script: |
+                cd /var/www/my-app
+                git pull origin main
+                npm install --production
+                pm2 restart app-name
               script: |  
-                ssh -p 2202 -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "cd /dev/shm && touch ok"
+                cd /dev/shm
+                touch ok
+
