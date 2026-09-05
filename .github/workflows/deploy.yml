@@ -65,9 +65,10 @@ jobs:
                         # ${{ github.workspace }}  : /home/runner/work/sandbox/sandbox
                         # ${{ job.status }}        : success
 
+                        cd `dirname ${DEPLOY_PATH}`
                         mv -v $DEPLOY_PATH `dirname ${DEPLOY_PATH}`"/$(date +'%d%m%Y%H%M%S')"
 
-                        mkdir -p "$DEPLOY_PATH"
+                        mkdir -p -v "$DEPLOY_PATH"
                         cd "$DEPLOY_PATH"
                         pwd
                         # TODO - set env - "$GITHUB_REPOSITORY"
