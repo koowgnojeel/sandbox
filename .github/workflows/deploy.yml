@@ -13,7 +13,7 @@ jobs:
           key: ${{ secrets.SSH_KEY }}  
           port: 2202
           script: |  
-            cd /dev/shm/temp/
+            cd /dev/shm/
             touch touched-by-github
 
 
