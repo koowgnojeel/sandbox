@@ -12,11 +12,6 @@ jobs:
               key: ${{ secrets.SSH_KEY }}
               port: 2202
               script_stop: true # Stops execution if a command fails
-              script: |
-                cd /var/www/my-app
-                git pull origin main
-                npm install --production
-                pm2 restart app-name
               script: |  
                 cd /dev/shm
                 touch ok
