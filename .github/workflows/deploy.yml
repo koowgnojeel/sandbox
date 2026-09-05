@@ -7,7 +7,9 @@
 # - deploy path
 # /dev/shm/temp/test
 name: Remote Server Deployment
-run-name: ${{ github.actor }}
+# run-name: ${{ github.actor }} ← Github username
+# timeout-minutes: 1 # Time in minutes
+environment: test  # production
 on:
     push:
         branches:
@@ -38,10 +40,6 @@ jobs:
                     username: ${{ secrets.SSH_USER }}
                     key: ${{ secrets.SSH_KEY }}
                     port: ${{ secrets.SSH_PORT }}
-
-                    timeout: 30 # Time in seconds
-                    environment: production
-                    message: "Click # to refresh" # This is treated as a string, not a comment
 
                     script_stop: true # Stops execution if a command fails
                     script: |  
