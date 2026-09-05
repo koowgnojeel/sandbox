@@ -6,14 +6,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:  
       - name: Execute remote Bash commands via SSH  
-        uses: appleboy/ssh-action@v1.0.3  
-        with:  
-          host: ${{ secrets.SSH_HOST }}  
-          username: ${{ secrets.SSH_USER }}  
-          key: ${{ secrets.SSH_KEY }}  
-          port: 2202
-          script: |  
-            cd /dev/shm/
-            touch touched-by-github
-
-
+        run:  
+          ssh -p 2202 -i ${{ secrets.SSH_KEY }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "cd /dev/shm/ && touch touched-by-github"
