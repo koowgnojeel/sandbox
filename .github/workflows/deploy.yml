@@ -16,7 +16,6 @@ jobs:
     deploy:
         env:
             DEPLOY_PATH: "/dev/shm/temp/test/"
-
         runs-on: ubuntu-latest
         steps:  
             # # 1. This step downloads your repository onto the runner
@@ -38,8 +37,8 @@ jobs:
                     username: ${{ secrets.SSH_USER }}
                     key: ${{ secrets.SSH_KEY }}
                     port: ${{ secrets.SSH_PORT }}
-                    envs: APP_VERSION,DATABASE_URL
-                    capture_stdout: true
+                    envs: DEPLOY_PATH
+                    timeout: 30        # in second(s)
                     script_stop: true  # Stops execution if a command fails
                     script: |  
                         echo "Starting the CI pipeline..."
